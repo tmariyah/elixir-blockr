@@ -1,0 +1,22 @@
+point: one square from a tetromino
+  {row, column}
+  functoins: 
+    move_down({point}) ... a point moved down by one...
+    move_left({point}) ... a point moved left by one...
+    move_right({point}) ... a point moved right by one...
+tetro: four squares from a tetromino
+game: all boxes on the screen
+
+
+
+
+x <- row 1, column 1   {1, 1}
+x <- row 2, column 1   {2, 1}
+x <- row 3, column 1   {3, 1}
+x <- row 4, column 1   {4, 1}
+
+
+point: {1, 2}
+move down (when gravity ticks) : {2, 2}
+move down (when gravity ticks) : {3, 2}
+move down (when gravity ticks) : {4, 2}
