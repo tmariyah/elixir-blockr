@@ -1,7 +1,7 @@
 defmodule PointTest do
   use ExUnit.Case
 
-  test "A new point" do
+  test "New point" do
     assert Point.new(5, 6) == {5, 6}
   end
 
