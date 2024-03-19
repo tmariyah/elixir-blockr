@@ -1,10 +1,8 @@
 defmodule Point do
-
   # a new point
   def new(row, col), do: {row, col}
 
   def move({x1, y1}, {x2, y2}), do: {x1 + x2, y1 + y2}
-
 
   # move in the correct direction by changing the column in point
   def move_down({row, column}), do: {row + 1, column}
@@ -25,6 +23,7 @@ defmodule Point do
 
   # Rotate Around the Canvas Center
   def rotate(point, 0, _w, _h), do: point
+
   def rotate(point, 90, w, _h) do
     point
     |> transpose()
