@@ -24,3 +24,6 @@ blockr-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# Misc
+.DS_Store
