@@ -8,11 +8,44 @@ defmodule Point do
   def move_down({row, column}), do: {row + 1, column}
 
   # move in the correct direction by changing the column in point
-  @spec move_left({any(), number()}) :: {any(), number()}
   def move_left({row, column}), do: {row, column - 1}
 
   # move in the correct direction by changing the column in point
   def move_right({row, column}), do: {row, column + 1}
+
+  def swap({row, col}) do
+    {col, row}
+  end
+
+  def flip_left_right({row, col}) do
+    {row, 5 - col}
+  end
+
+  def flip_top_bottom({row, col}) do
+    {5 - row, col}
+  end
+
+  def rotate(point, 0) do
+    point
+  end
+
+  def rotate(point, 90) do
+    point
+    |> swap()
+    |> flip_left_right()
+  end
+
+  def rotate(point, 180) do
+    point
+    |> flip_top_bottom()
+    |> flip_left_right()
+  end
+
+  def rotate(point, 270) do
+    point
+    |> swap()
+    |> flip_top_bottom()
+  end
 
   # Reflect a Point on a Canvas
   def origin(), do: {0, 0}
@@ -41,4 +74,5 @@ defmodule Point do
     |> flip(h)
     |> transpose()
   end
+
 end
