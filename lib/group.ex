@@ -13,6 +13,10 @@ defmodule Group do
     Enum.map(points, &Point.move_right/1)
   end
 
+  def move_to(points, location) do
+    Enum.map(points, &Point.move_to(&1, location))
+  end
+
   def swap(points) do
     Enum.map(points, &Point.swap/1)
   end

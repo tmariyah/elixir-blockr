@@ -13,6 +13,10 @@ defmodule Point do
   # move in the correct direction by changing the column in point
   def move_right({row, column}), do: {row, column + 1}
 
+  def move_to({from_row, from_col}, {to_row, to_col}) do
+    {from_row + to_row, from_col + to_col}
+  end
+
   def swap({row, col}) do
     {col, row}
   end
@@ -76,3 +80,28 @@ defmodule Point do
   end
 
 end
+
+# digital marketing
+# 1. organic
+# 2. paid
+# 3. digital sales
+
+# do a job after learning for at least 1 year
+
+# data analysis
+# reporting
+# after learning marketing, next is reporting and analysis
+
+# branding
+# its better to learn marketing
+# first attract audience
+# then make them interact with your ads
+# then comes the lead generation leading to conversion
+
+
+# first step is learning facebook
+# spend 1 month in organic
+# then move to paid, to learn digital marketing
+# easiest way is to learn paid for facebook
+
+# E-commerce

@@ -38,24 +38,24 @@ points =
     Point.new(4, 3)
   ]
 
-Canvas.tetromino(points)
+# Canvas.tetromino(points)
 
 points
 |> Enum.map(&Spinner.flip_left_right/1)
-|> Canvas.tetromino()
+# |> Canvas.tetromino()
 
 points
 |> Enum.map(&Spinner.flip_top_bottom()/1)
-|> Canvas.tetromino()
+# |> Canvas.tetromino()
 
 points
 |> Enum.map(&Spinner.rotate(&1, 180))
-|> Canvas.tetromino()
+# |> Canvas.tetromino()
 
 points
 |> Enum.map(&Spinner.rotate(&1, 90))
-|> Canvas.tetromino()
+# |> Canvas.tetromino()
 
 points
 |> Enum.map(&Spinner.rotate(&1, 270))
-|> Canvas.tetromino()
+# |> Canvas.tetromino()
