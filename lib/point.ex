@@ -79,29 +79,7 @@ defmodule Point do
     |> transpose()
   end
 
+  def paint(point, color) do
+    {point, color}
+  end
 end
-
-# digital marketing
-# 1. organic
-# 2. paid
-# 3. digital sales
-
-# do a job after learning for at least 1 year
-
-# data analysis
-# reporting
-# after learning marketing, next is reporting and analysis
-
-# branding
-# its better to learn marketing
-# first attract audience
-# then make them interact with your ads
-# then comes the lead generation leading to conversion
-
-
-# first step is learning facebook
-# spend 1 month in organic
-# then move to paid, to learn digital marketing
-# easiest way is to learn paid for facebook
-
-# E-commerce

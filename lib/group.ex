@@ -1,4 +1,6 @@
 defmodule Group do
+  alias Colour
+
   def move_down(points) do
     Enum.map(points, &Point.move_down/1)
   end
@@ -31,5 +33,9 @@ defmodule Group do
 
   def rotate(points, degree) do
     Enum.map(points, &Point.rotate(&1, degree))
+  end
+
+  def paint(points, shape_name) do
+    Enum.map(points, &Point.paint(&1, Colour.for(shape_name)))
   end
 end

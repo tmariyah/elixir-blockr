@@ -35,7 +35,7 @@ defmodule Tetromino do
   """
   defstruct [
     name: :i,
-    location: {1, 3},
+    location: {0, 0},
     rotation: 0,
     color: :green
   ]

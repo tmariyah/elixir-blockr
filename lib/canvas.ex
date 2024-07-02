@@ -1,33 +1,40 @@
 defmodule Canvas do
-  def tetromino(points, tetro) do
-    Enum.map(points, fn ({x, y}) ->
-      """
-      <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg">
-        <rect width="25" height="25" x="10" y="10" rx="20" ry="20" fill="#{tetro.color}" />
-      </svg>
-      """
-    end)
-    # return Kino Image tha
+  def new(contents) do
+    """
+    <svg
+      width="100" height="200"
+      xmlns="http://www.w3.org/2000/svg">
+      #{draw(contents, 10)}
+    </svg>
+    """
+    |> Kino.Image.new(:svg)
   end
 
-  def new() do
+  def tetromino(contents) do
+    """
+    <svg
+      width="100" height="100"
+      xmlns="http://www.w3.org/2000/svg">
+      #{draw(contents, 25)}
+    </svg>
+    """
+    |> Kino.Image.new(:svg)
+  end
 
+  def draw({{row, col}, color}, width) when is_binary(color) do
+    x = (col - 1) * width
+    y = (row - 1) * width
+
+    ~s[<rect width="#{width}" height="#{width}" x="#{x}" y="#{y}" fill="#{color}" />]
+  end
+
+  def draw({_row, _col} = point, width) do
+    draw({point, "black"}, width)
+  end
+
+  def draw(points, width) when is_list(points) do
+    points
+    |> Enum.map(&draw(&1, width))
+    |> Enum.join("\n")
   end
 end
-
-
-# Tetromino.new(:z)
-# |> Tetromino.rotate_right_90()
-# |> Tetromino.fall()
-# |> Tetromino.fall()
-# |> Tetromino.fall()
-# |> Tetromino.right()
-# |> Tetromino.to_group()
-# |> Canvas.new()
-
-# Remove the :canvas dependency from mix.exs and add a new :kino dependency to access the LiveBook component model.
-# Add a new file called canvas.ex.
-# Within Canvas, add constructor function called Canvas.tetromino/1 that accepts a list of points within a 4x4 grid and returns a SVG canvas that’s 100x100 pixels with rect tags 25x25 pixels for each point.
-# Within Canvas, add constructor function called Canvas.new/1 that accepts a list of points within a 20x10 grid and returns a SVG canvas that’s 100x200 pixels with rect tags 10x10 pixels for each point.
-# Make both Canvas.new/1 and Canvas.tetromino/1 return a Kino component that wraps an SVG image.
-# Write test cases for any new Tetromino and Group functions.
