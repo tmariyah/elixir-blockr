@@ -32,10 +32,10 @@ end
 
 points =
   [
-    Point.new(2, 2),
-    Point.new(3, 2),
-    Point.new(4, 2),
-    Point.new(4, 3)
+    Blockr.Game.Point.new(2, 2),
+    Blockr.Game.Point.new(3, 2),
+    Blockr.Game.Point.new(4, 2),
+    Blockr.Game.Point.new(4, 3)
   ]
 
 # Canvas.tetromino(points)
