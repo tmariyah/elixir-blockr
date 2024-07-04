@@ -1,5 +1,6 @@
 defmodule GroupTest do
   use ExUnit.Case
+  alias Blockr.Game.Group
 
   @points [{2, 3}, {3, 3}, {4, 3}, {4, 4}]
 
