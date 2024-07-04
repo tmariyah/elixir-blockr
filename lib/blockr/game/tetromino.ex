@@ -1,4 +1,4 @@
-defmodule Tetromino do
+defmodule Blockr.Game.Tetromino do
   @moduledoc """
   Alphabets shapes
 
@@ -36,12 +36,25 @@ defmodule Tetromino do
   defstruct [
     name: :i,
     location: {0, 0},
-    rotation: 0,
-    color: :green
+    rotation: 0
   ]
 
-  def new(name \\ :i) do
+  alias Blockr.Game.{Group, Point}
+
+  def new() do
+    %__MODULE__{}
+  end
+
+  def new(options) when is_list(options) do
+    __struct__(options)
+  end
+
+  def new(name) do
     %__MODULE__{name: name}
+  end
+
+  def new_random() do
+    # new tetro in the top middle with a random shape
   end
 
   def left(tetro) do
@@ -65,28 +78,24 @@ defmodule Tetromino do
   end
 
   def to_group(%{name: name} = tetro) do
-    case name do
-      :i -> [{1, 2}, {2, 2}, {3, 2}, {4, 2}]
-      :j -> [{1, 3}, {2, 3}, {3, 3}, {3, 2}]
-      :l -> [{1, 2}, {2, 2}, {3, 2}, {3, 3}]
-      :o -> [{2, 2}, {2, 3}, {3, 2}, {3, 3}]
-      :s -> [{2, 3}, {2, 4}, {3, 3}, {3, 2}]
-      :t -> [{1, 2}, {2, 2}, {2, 3}, {3, 2}]
-      :z -> [{2, 2}, {2, 3}, {3, 3}, {3, 4}]
-    end
+    name
+    |> tetro_shape()
     |> Group.rotate(tetro.rotation)
     |> Group.move_to(tetro.location)
+  end
 
-    # shape = fn
-    #   :i -> [{1, 2}, {2, 2}, {3, 2}, {4, 2}]
-    #   :j -> [{1, 3}, {2, 3}, {3, 3}, {3, 2}]
-    #   :l -> [{1, 2}, {2, 2}, {3, 2}, {3, 3}]
-    #   :o -> [{2, 2}, {2, 3}, {3, 2}, {3, 3}]
-    #   :s -> [{2, 3}, {2, 4}, {3, 3}, {3, 2}]
-    #   :t -> [{1, 2}, {2, 2}, {2, 3}, {3, 2}]
-    #   :z -> [{2, 2}, {2, 3}, {3, 3}, {3, 4}]
-    #   end
+  defp tetro_shape(name) do
+    shape =
+      fn
+        :i -> [{1, 2}, {2, 2}, {3, 2}, {4, 2}]
+        :j -> [{1, 3}, {2, 3}, {3, 3}, {3, 2}]
+        :l -> [{1, 2}, {2, 2}, {3, 2}, {3, 3}]
+        :o -> [{2, 2}, {2, 3}, {3, 2}, {3, 3}]
+        :s -> [{2, 3}, {2, 4}, {3, 3}, {3, 2}]
+        :t -> [{1, 2}, {2, 2}, {2, 3}, {3, 2}]
+        :z -> [{2, 2}, {2, 3}, {3, 3}, {3, 4}]
+      end
 
-    # %{tetro | location: shape.(name)}
+    shape.(name)
   end
 end

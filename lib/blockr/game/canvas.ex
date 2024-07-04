@@ -1,8 +1,8 @@
-defmodule Canvas do
+defmodule Blockr.Game.Canvas do
   def new(contents) do
     """
     <svg
-      width="100" height="200"
+      width="120" height="220"
       xmlns="http://www.w3.org/2000/svg">
       #{draw(contents, 10)}
     </svg>
@@ -22,8 +22,8 @@ defmodule Canvas do
   end
 
   def draw({{row, col}, color}, width) when is_binary(color) do
-    x = (col - 1) * width
-    y = (row - 1) * width
+    x = (col - 1) * width + 10
+    y = (row - 1) * width + 10
 
     ~s[<rect width="#{width}" height="#{width}" x="#{x}" y="#{y}" fill="#{color}" />]
   end

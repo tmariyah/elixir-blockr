@@ -1,5 +1,5 @@
-defmodule Group do
-  alias Colour
+defmodule Blockr.Game.Group do
+  alias Blockr.Game.{Colour, Point}
 
   def move_down(points) do
     Enum.map(points, &Point.move_down/1)
