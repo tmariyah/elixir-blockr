@@ -1,7 +1,8 @@
 # Blockr
 
 ```elixir
-alias Blockr.Game.{Canvas, Group, Point, Tetromino}
+alias Blockr.Game.{Canvas, Group, Point, Tetromino, Board}
+alias Blockr.Game
 ```
 
 ## single point
@@ -122,3 +123,49 @@ Next in our implementation:
 * Detach `Tetromino` is `fall` fails
 * Score `Tetromino` if `fall` fails
 * Remove scored rows on `score`
+
+## Show-Board
+
+```elixir
+game = Board.new().walls
+```
+
+```elixir
+game = Board.new()
+```
+
+```elixir
+game
+|> Game.left()
+|> Game.left()
+|> Game.left()
+|> Game.left()
+|> Game.left()
+|> Game.left()
+|> Board.show()
+|> Canvas.new()
+```
+
+```elixir
+game
+|> Game.right()
+|> Game.right()
+|> Game.right()
+|> Game.right()
+|> Game.right()
+|> Game.right()
+|> Board.show()
+|> Canvas.new()
+```
+
+```elixir
+game
+|> Game.right()
+|> Game.right()
+|> Game.right()
+|> Game.right()
+|> Game.right()
+|> Game.turn()
+|> Board.show()
+|> Canvas.new()
+```

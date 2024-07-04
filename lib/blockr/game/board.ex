@@ -41,8 +41,8 @@ defmodule Blockr.Game.Board do
   def show(board) do
     tetro =
       board.tetro
-    |> Tetromino.to_group()
-    |> Group.paint(board.tetro.name)
+      |> Tetromino.to_group()
+      |> Group.paint(board.tetro.name)
 
     [tetro, board.walls, board.junkyard]
   end

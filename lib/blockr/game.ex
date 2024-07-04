@@ -5,6 +5,28 @@ defmodule Blockr.Game do
     tetro =
       Tetromino.left(board.tetro)
 
+    attempt(board, tetro)
+  end
+
+  def right(board) do
+    tetro =
+      Tetromino.right(board.tetro)
+
+    attempt(board, tetro)
+  end
+
+  def turn(board) do
+    tetro =
+      Tetromino.rotate_right_90(board.tetro)
+
+    attempt(board, tetro)
+  end
+
+  def fall(board) do
+
+  end
+
+  defp attempt(board, tetro) do
     set =
       tetro
       |> Tetromino.to_group()
@@ -19,20 +41,5 @@ defmodule Blockr.Game do
       board
     end
   end
-
-  def right(board) do
-    tetro =
-      Tetromino.right(board.tetro)
-
-    %{board | tetro: tetro}
-  end
-
-  def turn(board) do
-    tetro =
-      Tetromino.left(board.tetro)
-
-    %{board | tetro: tetro}
-  end
-
 
 end
