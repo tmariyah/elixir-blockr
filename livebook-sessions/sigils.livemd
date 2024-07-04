@@ -1,0 +1,95 @@
+# Sigils
+
+```elixir
+import IEx.Helpers
+```
+
+## Uses
+
+```elixir
+["one", "two", "three"]
+```
+
+```elixir
+~w[one two three four]
+```
+
+```elixir
+~w(one two three four)
+```
+
+```elixir
+~w{one two three four}
+```
+
+```elixir
+~w"one two three four"
+```
+
+```elixir
+~w[one two three four]a
+```
+
+```elixir
+~w[one two three four]c
+```
+
+```elixir
+~w[one two three four]s # default
+```
+
+```elixir
+~s{a string with "a string"}
+```
+
+## Implementation
+
+## Available
+
+```elixir
+sigil_w(<<"one two three">>, 'a')
+```
+
+```elixir
+<<"test">> == "test"
+```
+
+```elixir
+exports Kernel
+```
+
+```elixir
+:macros
+|> Kernel.__info__()
+|> Enum.map(fn {name, _arity} -> to_string(name) end)
+|> Enum.filter(fn name -> String.contains?(name, "sigil_") end)
+```
+
+```elixir
+h sigil_C/2
+```
+
+```elixir
+value = "four"
+~W[one two three #{value}]
+```
+
+## Defining
+
+```elixir
+defmodule Numbers do
+  def sigil_i(str, _mod), do: String.to_integer(str)
+end
+```
+
+```elixir
+import Numbers
+```
+
+```elixir
+sigil_i("23", "")
+```
+
+```elixir
+~i(00067)
+```

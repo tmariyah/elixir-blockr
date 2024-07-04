@@ -1,0 +1,29 @@
+<!-- livebook:{"autosave_interval_s":60} -->
+
+# alias-import-require
+
+```elixir
+# import IEx.Helpers
+require Integer
+alias IEx.Helpers, as: Jeeves
+```
+
+## require
+
+```elixir
+1..10 |> Enum.map(&Integer.is_odd/1)
+```
+
+
+
+## import
+
+```elixir
+# h Enum.into()
+```
+
+## alias
+
+```elixir
+Jeeves
+```

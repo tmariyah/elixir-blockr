@@ -1,0 +1,206 @@
+<!-- livebook:{"autosave_interval_s":600} -->
+
+# Maps
+
+```elixir
+import IEx.Helpers
+```
+
+## History
+
+### last changes for erlang before Elixir 1.0
+
+```elixir
+i [{:one, 1}, {:two, 2}]
+```
+
+### Ruby syntax for map `{}`
+
+```elixir
+map = %{one: 1, two: 2}
+```
+
+## Syntax and Implementation
+
+```elixir
+keyword = [one: 1, two: 2]
+
+# keyword.one # not allowed
+keyword[:one]
+```
+
+```elixir
+a = [1, 2, 3]
+a[2] # not possible
+```
+
+Syntactically, keywords are sometimes preferable. for example, the last argument of a function, if it is a keyword, we can do this: `fun(a, option_one: 1, option_two: 2)`
+
+## Maps have better performance than keyword
+
+```elixir
+map = %{"key1" => 1, "key2" => 2}
+```
+
+```elixir
+life = %{{1, 1} => :live, {1, 2} => :dead}
+```
+
+```elixir
+person = %{name: "Jane", profession: "programmer"}
+```
+
+## Access
+
+```elixir
+{ Map.get(person, :name), person.name, person[:name], Map.fetch!(person, :name)}
+```
+
+## Updates
+
+```elixir
+new_person = %{ person| name: "John", profession: "Author" } # map update syntax
+# it will throw an error if key is misspelled or not present in the map
+```
+
+```elixir
+person 
+|> Map.put(:name, "Johnny")
+|> Map.put(:profession, "author")
+```
+
+## Bulk
+
+```elixir
+{Map.keys(person), Map.values(person)}
+```
+
+```elixir
+Map.to_list(person)
+```
+
+```elixir
+list = [{"name", "Jane"}, {"profession", "programmer"}]
+```
+
+```elixir
+Map.new(list)
+```
+
+```elixir
+Enum.into(list, %{})
+```
+
+```elixir
+Enum.into(list, %{"age" => 21})
+```
+
+## Defining Structs
+
+We can make a struct in two ways
+
+1. using Keyword list
+   2.
+
+```elixir
+defmodule User do
+  defstruct [name: "Jill", age: 25]
+  
+  def new() do
+    %User{name: "Bruce", age: 21}
+  end
+end
+```
+
+```elixir
+defmodule Point do
+  defstruct [:x, :y]
+end
+```
+
+```elixir
+User.new()
+```
+
+```elixir
+# %User{aeg: 27}
+user = %User{age: 26}
+```
+
+```elixir
+Point.__struct__
+```
+
+## The __struct__ key and function
+
+The only difference between struct and map is that the struct has `__struct__` key
+
+```elixir
+IEx.Helpers.exports(User)
+# exports(User)
+```
+
+```elixir
+User.__struct__(%{age: 30})
+```
+
+```elixir
+User.__struct__(age: 31)
+```
+
+```elixir
+Map.keys(user)
+```
+
+```elixir
+user.__struct__
+```
+
+## Protocols
+
+```elixir
+IEx.Helpers.i %{}
+```
+
+```elixir
+IEx.Helpers.i %Point{}
+```
+
+```elixir
+is_map(%Point{})
+```
+
+```elixir
+is_struct(%Point{})
+```
+
+```elixir
+Enum.count(%{one: 1})
+```
+
+```elixir
+Enum.count(Point.__struct__)
+```
+
+```elixir
+user_struct = User.new()
+```
+
+```elixir
+user_struct.name
+user_struct[:age]
+```
+
+## Common structs in Elixir
+
+```elixir
+IEx.Helpers.i Date.utc_today()
+```
+
+```elixir
+Date.utc_today() |> Map.keys()
+```
+
+```elixir
+DateTime.utc_now() |> Map.keys()
+```

@@ -1,0 +1,78 @@
+# MapSet
+
+```elixir
+import IEx.Helpers
+```
+
+## Creating
+
+```elixir
+h MapSet
+```
+
+```elixir
+empty = MapSet.new()
+```
+
+```elixir
+eight = MapSet.new(1..8)
+```
+
+```elixir
+MapSet.member?(eight, 9) # false
+MapSet.member?(eight, 8) 
+```
+
+```elixir
+i eight
+```
+
+```elixir
+%MapSet{} = eight # match operation here
+```
+
+```elixir
+%Date{} = eight
+```
+
+```elixir
+Map.keys(eight)
+```
+
+```elixir
+Map.values(eight)
+```
+
+## Adding Values
+
+```elixir
+MapSet.put(empty, :one) |> MapSet.to_list()
+```
+
+## Set Operations
+
+```elixir
+one_four = MapSet.new(1..4)
+five_eight = MapSet.new(5..8)
+two_six = MapSet.new(2..6)
+```
+
+```elixir
+MapSet.disjoint?(one_four, five_eight)
+```
+
+```elixir
+MapSet.intersection(one_four, five_eight)
+```
+
+```elixir
+MapSet.intersection(one_four, two_six)
+```
+
+```elixir
+%{} |> Map.put(:one, []) |> Map.put(:one, [])
+```
+
+```elixir
+MapSet.new() |> MapSet.put(:one) |> MapSet.put(:one) |> Map.values()
+```

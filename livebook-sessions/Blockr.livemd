@@ -1,0 +1,124 @@
+# Blockr
+
+```elixir
+alias Blockr.Game.{Canvas, Group, Point, Tetromino}
+```
+
+## single point
+
+```elixir
+
+p =
+  Point.new(1, 5)
+  |> Point.move_down()
+  |> Point.move_down()
+  |> Point.move_left()
+
+Canvas.new(p)
+```
+
+## multiple points
+
+```elixir
+points =
+  [
+    Point.new(2, 5),
+    Point.new(2, 6),
+    Point.new(3, 4),
+    Point.new(3, 5)
+  ]
+
+Canvas.new(points)
+```
+
+## Big Tetromino
+
+```elixir
+points =
+  [
+    Point.new(2, 2),
+    Point.new(3, 2),
+    Point.new(4, 2),
+    Point.new(4, 3)
+  ]
+
+Canvas.tetromino(points)
+```
+
+:s Shape
+
+```elixir
+Tetromino.new(:s)
+|> Tetromino.to_group()
+|> Canvas.tetromino()
+# |> IO.inspect(pretty: true)
+```
+
+:z shape
+
+```elixir
+#CRC = constructor, reducer, converter
+Tetromino.new(:z) # constructor
+|> Tetromino.rotate_right_90() # reducer
+|> Tetromino.left()
+|> Tetromino.right()
+|> Tetromino.right() # reducer
+|> Tetromino.to_group() # converter
+|> Group.paint(:z)
+# |> Canvas.new()
+|> Canvas.tetromino()
+```
+
+```elixir
+Tetromino.new(:t)
+|> Tetromino.to_group()
+|> Canvas.tetromino()
+```
+
+## Canvas with color
+
+```elixir
+Tetromino.new(:z)
+|> Tetromino.to_group()
+|> Group.paint("green")
+|> Canvas.tetromino()
+```
+
+```elixir
+Canvas.draw({1, 1}, 10)
+```
+
+```elixir
+Canvas.draw({{1, 1}, "green"}, 10)
+```
+
+```elixir
+Canvas.draw([{{1, 1}, "green"}, {{1, 2}, "green"}], 10)
+```
+
+```elixir
+Group.paint([{1, 1}, {2, 2}], :l)
+```
+
+```elixir
+Group.paint([{1, 1}, {2, 2}], :l) |> Canvas.draw(10) 
+```
+
+```elixir
+Point
+```
+
+## Complete through part 1
+
+Next in our implementation:
+
+* Add a game `Board`
+  * Add walls to our `Board`
+* Enhance `Canvas` dimensions to show walls
+* Enhance `Canvas` to show background color
+* Add score to our `Board`
+* Add `Game.move`, `Game.right` and check overlaps when tetromino moves
+* Add `Game.fall` and check overlaps when tetromino moves
+* Detach `Tetromino` is `fall` fails
+* Score `Tetromino` if `fall` fails
+* Remove scored rows on `score`

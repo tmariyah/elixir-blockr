@@ -1,0 +1,101 @@
+# Histrogram
+
+```elixir
+import IEx.Helpers
+```
+
+## Build a histogram with library function
+
+### Example
+
+<!-- livebook:{"force_markdown":true} -->
+
+```elixir
+istogram.build("apple")
+```
+
+```
+a | *
+p | **
+l | *
+e | *
+```
+
+```elixir
+"let us get started on some elixir"
+|> String.graphemes()
+|> Enum.frequencies()
+|> Enum.map(fn {key, value} ->
+  "#{key} | #{String.duplicate(~s[*], value)}"
+end)
+|> Enum.join("\n")
+|> IO.puts
+```
+
+## Histogram with `Enum.map/1`
+
+```elixir
+"build a histogram with the map function"
+|> String.graphemes()
+|> Enum.group_by(&(&1))
+|> Enum.map(fn {k, v} -> {k, length(v)} end)
+|> Enum.sort()
+|> Enum.map(fn {key, count} ->
+  "#{key} | #{String.duplicate(~s[*], count)}"
+end)
+|> Enum.join("\n")
+|> IO.puts
+```
+
+```elixir
+h Enum.sort/1
+```
+
+## Histogram with `Enum.reduce/3`
+
+```elixir
+# add one letter to the frequency map
+
+acc = %{"a" => 1, "p" => 1}
+letter = "l"
+
+# Map.put(acc, letter, acc[letter] + 1) # broken because of non-exixtant values
+add_one_letter = 
+  fn letter, acc -> 
+    Map.update(acc, letter, 1, fn x -> x + 1 end) 
+  end
+
+# "build a histogram with the reduce function"
+# |> Enum.reduce(%{}, fn letter, acc ->
+#   Map.update(acc, letter, 1, &(&1 + 1))
+# end)
+
+# acc[letter] + 1
+
+# "build a histogram with the reduce function"
+# |> String.graphemes()
+```
+
+```elixir
+print_one_row =
+  fn {letter, count}, acc ->
+    stars = String.duplicate("*", count)
+    row = "#{letter} | #{stars}"
+    IO.puts(row)
+    [row | acc]
+  end
+
+print_one_row.({"p", 2}, [])
+```
+
+```elixir
+"build a histogram with the map function"
+|> String.graphemes()
+|> Enum.reduce(%{}, add_one_letter))
+|> Enum.sort()
+|> Enum.reduce([], print_one_row)
+```
+
+```elixir
+&(&1 + 1)
+```

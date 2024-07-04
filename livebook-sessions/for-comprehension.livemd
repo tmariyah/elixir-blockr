@@ -1,0 +1,101 @@
+# For Comprehension
+
+```elixir
+import IEx.Helpers
+```
+
+## Basic
+
+```elixir
+h for/1
+```
+
+## Generators
+
+```elixir
+for x <- 1..100, do: x * 2
+```
+
+```elixir
+for x <- 1..100 do
+  x * 2
+end
+```
+
+```elixir
+for x <- ~c"abcdefg" do
+  inspect(x)
+end
+```
+
+```elixir
+for x <- %{one: 1, two: 2, three: 3} do
+  inspect(x)
+end
+```
+
+```elixir
+for x <- [one: 1, two: 2, three: 3] do
+  inspect(x)
+end
+```
+
+```elixir
+for x <- MapSet.new [one: 1, two: 2, three: 3] do
+  inspect(x)
+end
+```
+
+```elixir
+for << x <- "abc" >> do
+  inspect(x)
+end
+```
+
+```elixir
+for x <- 1..3, y <- 1..3, z <- 1..2, do: {x, y, z}
+```
+
+```elixir
+for x <- 1..3, y <- 1..3, z <- 1..2, y == 3, x in [2, 3], do: {x, y, z}
+```
+
+## For into
+
+```elixir
+i 1..30//3
+```
+
+## Into
+
+```elixir
+for c <- ?a..?z, into: <<>> do
+  <<c>>
+end
+```
+
+```elixir
+i <<>>
+```
+
+```elixir
+for c <- ?a..?z, into: %{} do
+  {<<c>>, 0}
+end
+
+# i %{}
+```
+
+```elixir
+for c <- ?a..?z, into: MapSet.new([]) do
+  {<<c>>, 0}
+end
+```
+
+```elixir
+for c <- ?a..?z, into: [] do
+  {String.to_atom(<<c>>), 0} 
+  # ":#{c}" |> to_charlist()
+end
+# |> i
+```

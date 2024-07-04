@@ -1,0 +1,60 @@
+# Character Data
+
+```elixir
+import IEx.Helpers 
+```
+
+## Integers and Characters
+
+```elixir
+# i 97
+i ?a
+```
+
+```elixir
+{?c, ?a, ?t}
+```
+
+## Lists and Charlists
+
+```elixir
+i [99, 97, 116]
+[99, 97, 116]
+```
+
+```elixir
+[99, 97, 116] == ~c"cat"
+```
+
+```elixir
+[:a, :sequence, :of, :links]
+```
+
+```elixir
+"cat" == ~c"cat"
+# "cat" == 'cat'
+```
+
+## Binaries and Strings
+
+```elixir
+i <<0, 1, 2, 3, 4>>
+```
+
+```elixir
+exports(:binary)
+```
+
+```elixir
+byte_size(<<0, 1, 2, 3, 4>>) # 5
+bit_size(<<0, 1, 2, 3, 4>>) # 5 * 8 bits = 40 bits
+```
+
+```elixir
+i <<?c, ?a, ?t>>
+```
+
+```elixir
+<<99, 97, 116>> # "cat"
+<<99, 97, 116>> == "cat"
+```

@@ -1,0 +1,183 @@
+# Functions
+
+```elixir
+import IEx.Helpers
+```
+
+## Named Functions
+
+A function has three things
+
+1. Name of the module
+2. function name
+3. arguments
+
+```elixir
+IO.puts("hello")
+```
+
+## Capture
+
+A function can be a data
+Its not executed yet
+
+```elixir
+function = &IO.inspect/1
+```
+
+```elixir
+i function
+```
+
+## As value
+
+```elixir
+Enum.each(1..8, function)
+```
+
+## Erlang
+
+```elixir
+# can be used for coin flip etc
+:random.uniform(2)
+```
+
+```elixir
+random_float_fn = &:random.uniform/0
+```
+
+```elixir
+random_float_fn.()
+```
+
+```elixir
+random_float_fn |> Stream.repeatedly() |> Enum.take(10)
+```
+
+## Imports/Alias
+
+```elixir
+import IEx.Helpers, only: [i: 1]
+```
+
+```elixir
+i &IO.puts/1
+```
+
+## Anonymous Function
+
+```elixir
+inc = fn x -> x + 1 end
+```
+
+```elixir
+i inc
+```
+
+```elixir
+inc.(42)
+```
+
+```elixir
+fun2 = &IO.inspect/1
+```
+
+```elixir
+i fun2
+```
+
+```elixir
+fun2.(42)
+```
+
+```elixir
+IEx.Helpers.h Enum.map/2
+```
+
+```elixir
+Enum.map(
+  [1, 2, 3], 
+  fn x -> 
+    x * x 
+  end)
+```
+
+## Functions Capture
+
+### Intuition
+
+```elixir
+fun = &(&1 + 1)
+```
+
+```elixir
+fun.(42)
+```
+
+```elixir
+i fun
+```
+
+```elixir
+fun2 = &(&1 + &2)
+```
+
+```elixir
+fun2.(42, 43)
+```
+
+```elixir
+fun3 = &(&1 + &1)
+```
+
+```elixir
+fun3.(4)
+```
+
+### Performance
+
+<!-- livebook:{"break_markdown":true} -->
+
+prefer:
+
+<!-- livebook:{"force_markdown":true} -->
+
+```elixir
+fn item, list ->
+  [item|list]
+end
+```
+
+over:
+
+<!-- livebook:{"force_markdown":true} -->
+
+```elixir
+&[&1|&2] 
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+#### Unless!!!
+
+<!-- livebook:{"break_markdown":true} -->
+
+prefer:
+
+<!-- livebook:{"force_markdown":true} -->
+
+```elixir
+&IO.inspect/1
+```
+
+over:
+
+<!-- livebook:{"force_markdown":true} -->
+
+```elixir
+fn item -> IO.inspect(item)
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Best Practice
