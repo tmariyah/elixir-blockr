@@ -1,6 +1,8 @@
 defmodule Polygon do
   @moduledoc false
 
+  alias Blockr.Game.Point
+
   def rectangle({x, y}, width, height) do
     [{x, y}, {x + width, y}, {x + width, y + height}, {x, y + height}]
   end
