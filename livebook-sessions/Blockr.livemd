@@ -2,10 +2,13 @@
 
 ```elixir
 alias Blockr.Game.{Canvas, Group, Point, Tetromino, Board}
-alias Blockr.Game
 ```
 
 ## single point
+
+```elixir
+alias Blockr.Game
+```
 
 ```elixir
 
@@ -154,18 +157,23 @@ game
 |> Game.right()
 |> Game.right()
 |> Game.right()
+|> Game.right()
+|> Game.right()
 |> Board.show()
 |> Canvas.new()
 ```
 
 ```elixir
-game
-|> Game.right()
-|> Game.right()
-|> Game.right()
-|> Game.right()
-|> Game.right()
-|> Game.turn()
+game2 = 
+  Enum.reduce(1..54, game, fn _i, acc -> Game.fall(acc) end)
+# Enum.reduce(1..15, game2, fn _i, acc -> Game.fall(acc) end)
 |> Board.show()
+|> Canvas.new()
+```
+
+## Within LiveBook, build a board with a junkyard by setting points directly onto the board. This will be important for test purposes.
+
+```elixir
+Board.new()
 |> Canvas.new()
 ```
