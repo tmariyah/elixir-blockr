@@ -1,0 +1,113 @@
+# Streams
+
+```elixir
+import IEx.Helpers
+```
+
+## Overview
+
+```elixir
+:functions
+|> Stream.__info__()
+|> Enum.each(fn {name, arity} ->
+  IO.puts "#{name}/#{arity}"
+end)
+```
+
+## Generators (constructors)
+
+```elixir
+one_value = fn -> 1..2 |> Enum.random() end # [1, 2]
+multiple_flips = Stream.repeatedly(one_value)
+```
+
+```elixir
+# this will not stop, would hang
+# multiple_flips|> Enum.map(& &1)
+multiple_flips|> Enum.take(10) |> Enum.map(& &1)
+```
+
+## Section
+
+```elixir
+head_or_tail = [:head, :tail] |> Stream.cycle() |> Enum.take(10)
+```
+
+## Stream.iterate/2
+
+```elixir
+count_stream = Stream.iterate(1, fn x -> x + 1 end) |> Stream.map(&IO.inspect/1)
+```
+
+```elixir
+count_stream |> Enum.take(10)
+```
+
+```elixir
+count_stream |> Enum.take(4)
+```
+
+```elixir
+# to take the next numbers after 10
+count_stream |> Stream.drop(10) 
+```
+
+```elixir
+count_stream |> Stream.drop(10)  |> Enum.take(4)
+```
+
+## Stream Transformations
+
+```elixir
+Stream.repeatedly(fn -> :random.uniform(8) end) |> Enum.take(20)
+```
+
+```elixir
+Stream.repeatedly(fn -> 8 end)
+|> Stream.map(fn x -> 1..x end)
+|> Enum.take(20)
+```
+
+```elixir
+Stream.repeatedly(fn -> 8 end)
+|> Stream.flat_map(fn x -> Enum.shuffle(1..x) end)
+|> Enum.take(20)
+```
+
+```elixir
+random_groupings = 
+  Stream.repeatedly(fn -> 8 end)
+  |> Stream.flat_map(fn x -> Enum.shuffle(1..x) end)
+```
+
+```elixir
+random_groupings |> Enum.take(20)
+```
+
+```elixir
+line_numbers = Stream.iterate(1, fn n -> n + 1 end)
+```
+
+```elixir
+Stream.zip(random_groupings, line_numbers) |> Enum.take(20)
+```
+
+```elixir
+random_groupings |> Stream.with_index(1) |> Enum.take(20) 
+```
+
+```elixir
+striping = ~w(white grey)a |> Stream.cycle() 
+```
+
+```elixir
+Stream.zip(striping, Stream.with_index(random_groupings, 1)) 
+|> Stream.map(fn {color, {n, i}} -> {i, n, color} end)
+|> Enum.take(20)
+```
+
+```elixir
+range = 1..1_000_000
+stream = Stream.map(range, &(&1 * 3))
+IO.puts Enum.sum(stream)
+```

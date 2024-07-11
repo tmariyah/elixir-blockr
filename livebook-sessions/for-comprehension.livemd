@@ -99,3 +99,53 @@ for c <- ?a..?z, into: [] do
 end
 # |> i
 ```
+
+## uniq
+
+```elixir
+string = "the quick brown fox jumps over the lazy dog"
+```
+
+```elixir
+string
+|> String.graphemes()
+|> Enum.filter(&(&1 != " "))
+|> Enum.uniq()
+```
+
+```elixir
+for ch <- String.graphemes(string), ch != " ", uniq: true do
+  ch
+end
+# |> length()
+```
+
+## reduce
+
+```elixir
+string
+|> String.graphemes()
+|> Enum.filter(&(&1 != " "))
+|> Enum.reduce(%{}, fn ch, counts -> 
+  Map.update(counts, ch, 1, fn count -> count + 1 end)
+end)
+```
+
+```elixir
+ string
+|> String.graphemes()
+|> Enum.filter(&(&1 != " "))
+|> Enum.reduce(%{}, fn ch, counts -> 
+  Map.update(counts, ch, 1, &(&1 + 1))
+end)
+```
+
+## reduce:
+
+```elixir
+for ch <- String.graphemes(string),
+  ch != " ", 
+  reduce: %{} do
+  count -> Map.update(count, ch, 1, &(&1 + 1)) 
+end
+```
