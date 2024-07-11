@@ -23,7 +23,8 @@ defmodule Blockr.MixProject do
     [
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:canvas, git: "https://github.com/groxio-learning/canvas.git"},
-      {:kino, "~> 0.13.1"}
+      {:kino, "~> 0.13.1"},
+      {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false}
     ]
   end
 end
