@@ -1,0 +1,156 @@
+# Processes
+
+```elixir
+import IEx.Helpers
+```
+
+## Processes
+
+* execute code
+* hold a little state
+* super lightweight
+* actors
+
+<!-- livebook:{"break_markdown":true} -->
+
+##### A Process
+
+* id
+* execute
+* send/receive messages
+
+```elixir
+client = self()
+```
+
+```elixir
+service = self()
+```
+
+```elixir
+message = "hello, world"
+```
+
+```elixir
+send(service, message)
+```
+
+```elixir
+Process.info(service)
+```
+
+```elixir
+flush()
+```
+
+## Core
+
+```elixir
+# fibonacci sequence
+[1, 1, 2, 3, 5, 8, 13, 21]
+```
+
+```elixir
+defmodule Fibber.Core do
+  defstruct [:a, :b]
+
+  def new, do: %__MODULE__{a: 0, b: 1}
+
+  def next(fib) do
+    %__MODULE__{a: fib.b, b: fib.a + fib.b}
+  end
+
+  def show(%{b: b} = _fib), do: b
+end
+```
+
+```elixir
+alias Fibber.Core
+
+Core.new |> Core.next() |> Core.next() |> Core.next() |> Core.show()
+```
+
+## Boundary
+
+```elixir
+defmodule Fibber.Service do
+  alias Fibber.Core
+  
+  def start_link() do
+    spawn_link(fn -> Core.new() |> loop() end)
+  end
+
+  def loop(fib) do
+    fib
+    |> listen()
+    |> loop()
+  end
+
+  def listen(fib) do
+    receive do
+      :next -> Core.next(fib)
+      
+      {:value, from_pid} ->
+        send(from_pid, fib.b)
+        fib
+    end
+  end
+
+  def next(pid) do
+    send(pid, :next)
+  end
+
+  def show(pid) do
+    send(pid, {:value, self()})
+    receive do
+      value -> value 
+    end
+  end
+end
+```
+
+```elixir
+pid = Fibber.Service.start_link()
+```
+
+```elixir
+Fibber.Service.show(pid)
+```
+
+```elixir
+Fibber.Service.next(pid)
+```
+
+```elixir
+send(pid, :next)
+```
+
+```elixir
+defmodule Fibber do
+  alias Fibber.Service
+
+  def sart_link() do
+    Service.start_link()
+  end
+
+  def next(pid) do
+    Service.next(pid)
+  end
+
+  def show(pid) do
+    Service.show(pid)
+  end
+end
+```
+
+```elixir
+fibber = Fibber.sart_link()
+```
+
+```elixir
+Fibber.next(fibber)
+```
+
+```elixir
+Fibber.show(fibber)
+```

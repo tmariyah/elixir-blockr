@@ -1,0 +1,130 @@
+# Dealing with Errors
+
+```elixir
+import IEx.Helpers
+```
+
+## Let it crash
+
+```elixir
+# spawn_link fn -> 1 / 0 end
+```
+
+```elixir
+# spawn_link fn -> raise "booM!" end
+```
+
+```elixir
+i + 1
+```
+
+## Errors as Data
+
+```elixir
+{:error, "some message"}
+```
+
+```elixir
+:error
+```
+
+```elixir
+# Integer.parse("42 apples") # {42, " apples"}
+Integer.parse("I have 42 apples")
+```
+
+## Errors as Exceptions
+
+```elixir
+# String.to_integer("42") # 42
+String.to_integer("")
+```
+
+## How to cause them
+
+```elixir
+1 / 0
+```
+
+```elixir
+hd []
+```
+
+```elixir
+List.first([])
+```
+
+```elixir
+raise "Oops..."
+```
+
+```elixir
+raise RuntimeError, "bad things, man..."
+```
+
+```elixir
+raise ArgumentError, "bad things, man..."
+```
+
+```elixir
+ArgumentError.__struct__
+```
+
+```elixir
+# or
+%ArgumentError{}
+```
+
+## How to customize them
+
+```elixir
+defmodule MyException do
+  defexception message: "Whoa... that went poorly..."
+end
+```
+
+```elixir
+raise MyException
+```
+
+```elixir
+raise MyException, "mistakes were made..."
+```
+
+## How to eal with them
+
+```elixir
+try do
+  raise "booM!"
+rescue
+  e -> RuntimeException
+    {:error, e.message}
+end
+```
+
+```elixir
+try do
+  cond do
+    Enum.random([1, 2]) == 1 -> {:ok, 1}
+    true -> raise "boom"
+  end
+rescue
+  e -> RuntimeException
+    {:error, e.message}
+end
+```
+
+```elixir
+try do
+  cond do
+    Enum.random([1, 2]) == 1 -> {:ok, 1}
+    true -> raise "boom"
+  end
+rescue
+  e -> RuntimeException
+    {:error, e.message}
+after
+  # clean up code here
+  IO.puts "cleaning up :)"
+end
+```
